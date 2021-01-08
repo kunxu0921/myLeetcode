@@ -1,0 +1,108 @@
+public class ListNode{
+		int val;
+		ListNode next;
+		ListNode(int val){
+			this.val = val;
+		}
+}
+
+public class List{
+
+		private ListNode head = null;
+		
+		public boolean add (int a){
+				ListNode newNode = new ListNode(a);
+				if(head == null){
+					head = newNode;
+					return true;
+				}
+				ListNode cur = head;
+				
+				while(cur.next  != null){
+					cur = cur.next;
+				}
+				cur.next = newNode;
+				return true;
+				
+		}
+		public boolean delete (int a){
+				
+				if(head == null){ return false;}
+				
+				if(head.val == a){
+					head = head.next;
+					return true;
+				}
+				
+				ListNode cur = head;
+				
+				while(cur.next != null){
+					if(cur.next == a){
+						cur.next = cur.next.next;
+						return true;
+					}
+					cur = cur.next;
+				}
+				return false;
+		}
+		public int size(){
+				int intSize = 0;
+				ListNode cur = head;
+				while(cur != null){
+					intSize = intSize + 1;
+					cur = cur.next;
+				}
+				return intSize;
+		}
+		public int find(int a){
+				int flag = 0;
+				ListNode cur = head;
+				
+				while(cur != null){
+					if(cur.next == a){
+						flag = cur.next;
+						
+					}
+				}
+				return flag;
+		
+		}
+
+}
+
+/*
+小技巧：对于链表问题，返回结果为头结点时，通常需要先初始化一个预先指针 pre，该指针的下一个节点指向真正的头结点head。使用预先指针的目的在于链表初始化时无可用节点值，而且链表构造过程需要指针移动，进而会导致头指针丢失，无法返回结果。
+*/
+public class solution{
+		public ListNode addTwoNumbers(ListNode l1,ListNode l2){
+				
+				ListNode pre = new ListNode(0);
+				ListNode cur = pre;
+				int flag = 0;
+				
+				while(l1 != null || l2 != null){
+					int a = l1 == null ? 0 , l1.val;
+					int b = l2 == null ? 0 , l2.val;
+					int sum = a + b + flag;
+					
+					// flag = sum / 10;
+					flag = sum > 9 ? 1 : 0 ; 
+					sum = sum % 10;
+					
+					cur.next = new ListNode(sum);
+					
+					cur = cur.next;
+					if(l1.next != null){
+						l1 = l1.next;
+					}
+					if(l2.next != null){
+						l2 = l2.next;
+					}
+				}
+				if(flag == 1){
+					cur.next = new ListNode(flag);
+				}
+				return cur;
+
+		}
+}
